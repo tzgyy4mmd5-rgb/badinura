@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0c0b">
+<title>BADINURA — 22/09</title>
+<style>
+:root {
+ --bg:#0d0c0b;--surface:#151311;--surface2:#1b1815;--text:#f7f0e8;
+ --muted:#aaa097;--line:rgba(255,255,255,.13);--accent:#e9bd99;--accent2:#f4d9c1;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-height:100vh}
+button{font:inherit}
+.app{min-height:100vh;position:relative;overflow:hidden}
+
+/* Романтический аутентичный фон с мягким свечением и сердечками */
+.app:before {
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background:
+  radial-gradient(circle at 50% 20%, rgba(244, 162, 190, 0.15), transparent 45%),
+  radial-gradient(circle at 85% 75%, rgba(233, 189, 153, 0.12), transparent 40%),
+  radial-gradient(circle at 15% 85%, rgba(210, 120, 150, 0.10), transparent 35%);
+ z-index: 0;
+}
+
+/* Декоративные парящие сердечки на фоне */
+.bg-hearts {
+ position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; opacity: 0.25;
+}
+.bg-heart {
+ position: absolute; color: var(--accent); font-size: 18px; animation: floatHeart 12s infinite linear;
+}
+@keyframes floatHeart {
+ 0% { transform: translateY(105vh) scale(0.8) rotate(0deg); opacity: 0; }
+ 20% { opacity: 0.8; }
+ 80% { opacity: 0.8; }
+ 100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+}
+
+.screen{display:none;min-height:100vh;padding:24px 18px 42px;position:relative;z-index:1}
+.screen.active{display:flex;flex-direction:column;animation:in .55s ease}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.container{width:min(650px,100%);margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9c928a}
+.brand{color:var(--accent2)}
+.hero{min-height:calc(100vh - 100px);display:flex;align-items:center;justify-content:center;text-align:center}
+.eyebrow,.kicker{font-size:11px;letter-spacing:.23em;text-transform:uppercase;color:var(--accent);margin-bottom:17px}
+h1{font-size:clamp(48px,15vw,82px);line-height:.88;letter-spacing:-.065em;margin:0 0 20px;font-weight:800}
+h2{font-size:clamp(32px,9vw,52px);line-height:.98;letter-spacing:-.045em;margin:0 0 18px}
+h3{margin:0}
+p{line-height:1.65}
+.hero p,.lead{color:var(--muted);font-size:15px}
+.btn{border:1px solid var(--line);border-radius:999px;padding:14px 20px;background:transparent;color:var(--text);cursor:pointer;transition:.2s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent2);color:#17120f;border-color:var(--accent2);font-weight:750}
+.btn.dark{background:#0e0d0c}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+.actions .btn{flex:1;min-width:150px}
+.progress{display:flex;gap:5px;margin:22px 0 28px}
+.progress i{height:2px;flex:1;border-radius:10px;background:var(--line)}
+.progress i.on{background:var(--accent)}
+.card{background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid var(--line);border-radius:21px;padding:18px;margin:17px 0}
+.photo{display:block;width:100%;border-radius:16px;object-fit:cover}
+.photo.tall{aspect-ratio:4/3}
+.photo.wide{aspect-ratio:16/9}
+.caption{font-size:12px;color:#8f867f;text-align:center;margin-top:9px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
+.pill{font-size:12px;color:#bcb3aa;border:1px solid var(--line);border-radius:999px;padding:8px 10px}
+.pill strong{color:var(--text)}
+.place-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.place-icon{width:42px;height:42px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;font-size:20px;flex:none}
+.address{font-size:12px;color:#918880;margin-top:6px}
+.map-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--accent2);border:1px solid rgba(233,189,153,.35);border-radius:999px;padding:8px 11px;font-size:11px;white-space:nowrap}
+.note{border-left:2px solid var(--accent);background:rgba(233,189,153,.045);border-radius:0 13px 13px 0;padding:13px 15px;color:#bdb4ac;font-size:13px;line-height:1.55}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.choice{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px 14px;text-align:center;color:var(--text);cursor:pointer;min-height:155px}
+.choice:active{transform:scale(.98)}
+.choice .icon{font-size:27px;margin-bottom:13px}
+.choice strong{display:block;font-size:15px}
+.choice span{display:block;color:var(--muted);font-size:11px;line-height:1.45;margin-top:7px}
+.hidden{display:none}
+.quote{font-size:20px;line-height:1.45;color:#ddd0c5}
+.route{display:grid;gap:9px}
+.route-row{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:12px}
+.num{width:29px;height:29px;border-radius:50%;background:var(--accent);color:#17120f;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+.route-row small{display:block;color:#8f877f;margin-top:2px}
+.signature{font-family:cursive;font-size:25px;color:var(--accent2);margin-top:22px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:20}
+.confetti i{position:absolute;width:6px;height:11px;animation:fall 1.8s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(650deg);opacity:0}}
+@media(max-width:430px){.choice-grid{grid-template-columns:1fr 1fr}.choice{min-height:145px}}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- Фоновые романтические сердечки -->
+<div class="bg-hearts">
+  <div class="bg-heart" style="left: 10%; animation-delay: 0s;">♡</div>
+  <div class="bg-heart" style="left: 30%; animation-delay: 3s;">♥</div>
+  <div class="bg-heart" style="left: 55%; animation-delay: 1.5s;">♡</div>
+  <div class="bg-heart" style="left: 75%; animation-delay: 5s;">♥</div>
+  <div class="bg-heart" style="left: 90%; animation-delay: 2s;">♡</div>
+</div>
+
+<div id="confetti" class="confetti"></div>
+
+<section id="s0" class="screen active">
+ <div class="container">
+  <div class="top"><span class="brand">BIRTHDAY QUEST</span><span>22 / 09</span></div>
+  <div class="hero">
+   <div>
+    <div class="eyebrow">С Днём Рождения, любимая ♡</div>
+    <h1>BADINURA</h1>
+    <p>Этот день принадлежит только тебе...<br>Я подготовил для нас особенный маршрут.<br>Тебе не нужно ни о чём думать — просто будь рядом и наслаждайся каждым моментом. ♡</p>
+    <button class="btn primary" onclick="go(1)">Узнать наш план →</button>
+    <div style="font-size:11px;color:#756d66;margin-top:14px">P.S. Наш идеальный день начинается...</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="s1" class="screen">
+ <div class="container">
+  <div class="top"><span>01 / 03</span><span>♡</span></div>
+  <div class="progress"><i class="on"></i><i></i><i></i></div>
+  <div class="kicker">первая остановка</div>
+  <h2>Наш праздник<br>начинается здесь.</h2>
+  <p class="lead">С места, где нас ждёт невероятно вкусный обед, уютное время вдвоём и самое первое приятное впечатление этого дня. ♡</p>
+  
+  <div class="card">
+   <div class="place-head">
+     <div>
+       <h3>SUMO SAN</h3>
+       <div class="address">ул. Байтурсынова, 159 · Алматы</div>
+     </div>
+     <div class="place-icon">🍣</div>
+   </div>
+   <div style="margin-top: 14px;">
+     <!-- Качественное фото суши -->
+     <img class="photo tall" src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80" alt="Sumo San Sushi">
+   </div>
+   <div class="note" style="margin-top: 14px;">
+     Начнём наш день с чего-то очень вкусного, а потом сразу отправимся дальше. Можешь пролистать ниже, чтобы увидеть весь наш план на сегодня! ♡
+   </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" onclick="go(2)">Следующая локация →</button>
+  </div>
+ </div>
+</section>
+
+<section id="s2" class="screen">
+ <div class="container">
+  <div class="top"><span>02 / 03</span><span>⚡</span></div>
+  <div class="progress"><i class="on"></i><i class="on"></i><i></i></div>
+  <div class="kicker">время эмоций</div>
+  <h2>Зарядимся драйвом!</h2>
+  <p class="lead">Немного адреналина и ярких впечатлений для разогрева.</p>
+  
+  <div class="card">
+   <div class="place-head">
+     <div>
+       <h3>КАРТИНГ</h3>
+       <div class="address">Скорость, азарт и эмоции</div>
+     </div>
+     <div class="place-icon">🏎️</div>
+   </div>
+   <div style="margin-top: 14px;">
+     <!-- Атмосферное фото картинга -->
+     <img class="photo tall" src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80" alt="Karting">
+   </div>
+   <div class="note" style="margin-top: 14px;">
+     P.S. А здесь нас ждёт настоящий драйв, море эмоций и проверка на скорость! Готовься к крутым виражам и первому месту на финише. ♡
+   </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" onclick="go(3)">Перейти к финалу →</button>
+  </div>
+ </div>
+</section>
+
+<section id="s3" class="screen">
+ <div class="container">
+  <div class="top"><span>03 / 03</span><span>✨</span></div>
+  <div class="progress"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+  <div class="kicker">кульминация</div>
+  <h2>Самая волшебная часть<br>нашего вечера...</h2>
+  <p class="lead">Все детали и главный сюрприз я открою тебе уже лично. Главное — мы вместе, и этот день будет особенным. ♡</p>
+  
+  <div class="card" style="text-align: center; padding: 28px 18px;">
+    <div style="font-size: 40px; margin-bottom: 12px;">🥂✨</div>
+    <div class="quote">«С тобой каждый день — как маленькое праздничное приключение. Спасибо, что ты есть!»</div>
+    <div class="signature">До встречи на старте! ♡</div>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" onclick="go(0)">Вернуться в начало ↺</button>
+  </div>
+ </div>
+</section>
+
+</div>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>

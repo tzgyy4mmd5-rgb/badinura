@@ -19,7 +19,6 @@ body{min-height:100vh}
 button{font:inherit}
 .app{min-height:100vh;position:relative;overflow:hidden;background:var(--bg);transition:background 1s ease}
 
-/* Ночной город + романтические огоньки и свечение на фоне */
 .app-bg {
  position: fixed; inset: 0; pointer-events: none; z-index: 0;
  background: 
@@ -28,7 +27,6 @@ button{font:inherit}
   radial-gradient(circle at 50% 50%, rgba(13, 12, 11, 0.95), #0a0908);
 }
 
-/* Парящие символы ♡ и звёздочки ✦ */
 .stars-container {
  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; opacity: 0.4;
 }
@@ -48,7 +46,7 @@ button{font:inherit}
 .container{width:min(650px,100%);margin:auto}
 .top{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9c928a}
 .brand{color:var(--accent2)}
-.hero{min-height:calc(100vh - 100px);display:flex;align-items:center;justify-content:center;text-align:center}
+.hero{min-height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px 0}
 .eyebrow,.kicker{font-size:11px;letter-spacing:.23em;text-transform:uppercase;color:var(--accent);margin-bottom:17px}
 h1{font-size:clamp(46px,14vw,80px);line-height:.88;letter-spacing:-.065em;margin:0 0 20px;font-weight:800}
 h2{font-size:clamp(30px,8.5vw,48px);line-height:1.02;letter-spacing:-.04em;margin:0 0 18px;font-weight:700}
@@ -58,19 +56,19 @@ p{line-height:1.65}
 .btn{border:1px solid var(--line);border-radius:999px;padding:14px 22px;background:transparent;color:var(--text);cursor:pointer;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
 .btn:active{transform:scale(.97)}
 .btn.primary{background:var(--accent2);color:#17120f;border-color:var(--accent2);font-weight:750}
-.btn.dark{background:#0e0d0c}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
 .actions .btn{flex:1;min-width:150px}
 .progress{display:flex;gap:5px;margin:22px 0 28px}
 .progress i{height:2px;flex:1;border-radius:10px;background:var(--line);transition:background .3s}
 .progress i.on{background:var(--accent)}
 
-/* Элегантный стиль Полароидов/Карточек */
+/* Карточки */
 .card{background:var(--surface);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin:18px 0;box-shadow:0 20px 40px rgba(0,0,0,0.4)}
 .card-body{padding:20px}
 .photo{display:block;width:100%;object-fit:cover}
 .photo.tall{aspect-ratio:16/10}
-.caption{font-size:12px;color:#8f867f;text-align:center;margin-top:10px;font-style:italic}
+.photo.personal{aspect-ratio:4/3}
+.caption{font-size:13px;color:#cfc4b8;text-align:center;margin-top:12px;font-style:italic}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
 .pill{font-size:12px;color:#bcb3aa;background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
 .pill strong{color:var(--text)}
@@ -79,7 +77,6 @@ p{line-height:1.65}
 .place-icon{width:42px;height:42px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,0.03);display:grid;place-items:center;font-size:20px;flex:none}
 .address{font-size:13px;color:#918880;margin-top:4px}
 .map-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--accent2);border:1px solid rgba(233,189,153,.35);background:rgba(233,189,153,0.06);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:600;margin-top:15px;transition:.2s}
-.map-btn:active{transform:scale(.97)}
 
 .note{border-left:2px solid var(--accent);background:rgba(233,189,153,.05);border-radius:0 14px 14px 0;padding:14px 16px;color:#bdb4ac;font-size:14px;line-height:1.6;margin-top:16px}
 .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
@@ -90,7 +87,7 @@ p{line-height:1.65}
 .choice strong{display:block;font-size:15px;margin-bottom:6px}
 .choice span{display:block;color:var(--muted);font-size:12px;line-height:1.45}
 .hidden{display:none}
-.quote{font-size:18px;line-height:1.6;color:#e8ded5;font-weight:500}
+.quote{font-size:17px;line-height:1.6;color:#e8ded5;font-weight:500}
 .handwriting{font-family:'Caveat',cursive;font-size:32px;color:var(--accent2);margin-top:18px}
 
 .confetti{position:fixed;inset:0;pointer-events:none;z-index:20}
@@ -103,7 +100,6 @@ p{line-height:1.65}
 <div class="app" id="app">
 <div class="app-bg"></div>
 
-<!-- Динамические парящие искорки и сердечки -->
 <div class="stars-container">
   <div class="star-item" style="left: 8%; animation-delay: 0s;">✦</div>
   <div class="star-item" style="left: 22%; animation-delay: 3s;">♡</div>
@@ -114,7 +110,7 @@ p{line-height:1.65}
 
 <div id="confetti" class="confetti"></div>
 
-<!-- ЭКРАН 0: Главная / Приглашение -->
+<!-- ЭКРАН 0: Главная -->
 <section id="s0" class="screen active">
  <div class="container">
   <div class="top"><span class="brand">BIRTHDAY QUEST</span><span>22 / 09</span></div>
@@ -123,10 +119,16 @@ p{line-height:1.65}
     <div class="eyebrow">С Днём Рождения, любимая ♡</div>
     <h1>BADINURA</h1>
     <p>Завтра у нас будет свой маленький маршрут. ♡<br>От вкусного обеда до вечерних приключений — я собрал для тебя целый день, который мы проведём вместе.</p>
-    <div style="margin-top: 28px;">
+
+    <!-- Ваша первая совместная фотография -->
+    <div class="card" style="margin: 22px 0 10px;">
+      <img class="photo personal" src="our_photo1.jpg" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80'" alt="Наше фото">
+      <div class="caption">Хочу, чтобы таких воспоминаний у нас становилось только больше. ♡</div>
+    </div>
+
+    <div style="margin-top: 22px;">
       <button class="btn primary" onclick="go(1)">Узнать наш план →</button>
     </div>
-    <div style="font-size:12px;color:#857d76;margin-top:16px">P.S. Тебе не нужно ни о чём думать — просто будь рядом ✨</div>
    </div>
   </div>
  </div>
@@ -142,9 +144,7 @@ p{line-height:1.65}
   <p class="lead">Сначала нас ждёт вкусный обед, спокойная атмосфера и самое первое приятное время вдвоём.</p>
   
   <div class="card">
-   <!-- Фото суши на всю ширину сверху -->
    <img class="photo tall" src="sushi.jpg" onerror="this.src='https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80'" alt="Суши Sumo San">
-   
    <div class="card-body">
      <div class="place-head">
        <div>
@@ -153,11 +153,9 @@ p{line-height:1.65}
        </div>
        <div class="place-icon">🍣</div>
      </div>
-     
      <a href="https://2gis.kz/almaty/search/Sumo%20San%20%D0%91%D0%B0%D0%B9%D1%82%D1%83%D1%80%D1%81%D1%8B%D0%BD%D0%BE%D0%B2%D0%B0%20159" target="_blank" class="map-btn">
        Открыть в 2ГИС ↗
      </a>
-
      <div class="note">
        Начнём наш день с чего-нибудь вкусного, спокойно пообедаем и просто побудем вдвоём. А дальше отправимся навстречу следующей части нашего маршрута. ♡
      </div>
@@ -170,7 +168,7 @@ p{line-height:1.65}
  </div>
 </section>
 
-<!-- ЭКРАН 2: Metro (Картинг + Боулинг) -->
+<!-- ЭКРАН 2: Metro -->
 <section id="s2" class="screen">
  <div class="container">
   <div class="top"><span>02 / 03</span><span>🏎️</span></div>
@@ -180,9 +178,7 @@ p{line-height:1.65}
   <p class="lead">После вкусного обеда самое время немного разогнаться.</p>
   
   <div class="card">
-   <!-- Фото картинга на всю ширину сверху -->
    <img class="photo tall" src="karting.jpg" onerror="this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80'" alt="Картинг METRO">
-   
    <div class="card-body">
      <div class="place-head">
        <div>
@@ -191,16 +187,13 @@ p{line-height:1.65}
        </div>
        <div class="place-icon">🏁</div>
      </div>
-
      <div class="meta">
        <span class="pill">🏎️ <strong>Картинг</strong></span>
        <span class="pill">🎳 <strong>Боулинг</strong></span>
      </div>
-
      <a href="https://2gis.kz/almaty/search/METRO%20%D0%96%D0%B0%D0%BD%D0%B0%D0%B4%D0%BE%D1%81%D0%BE%D0%B2%D0%B0%202%D0%91" target="_blank" class="map-btn">
        Открыть в 2ГИС ↗
      </a>
-
      <div class="note">
        Нас ждут скорость, азарт и несколько часов, чтобы просто веселиться вместе. Посмотрим, кто из нас окажется быстрее! ♡
      </div>
@@ -213,7 +206,7 @@ p{line-height:1.65}
  </div>
 </section>
 
-<!-- ЭКРАН 3: Выбор (Квест или Парк) -->
+<!-- ЭКРАН 3: Выбор -->
 <section id="s3" class="screen">
  <div class="container">
   <div class="top"><span>03 / 03</span><span>✨</span></div>
@@ -249,11 +242,16 @@ p{line-height:1.65}
 <section id="s4" class="screen">
  <div class="container">
   <div class="top"><span>ФИНАЛ</span><span>❤️</span></div>
-  <div style="text-align:center; padding: 35px 10px 20px;">
-    <div class="eyebrow" style="margin-bottom:12px;">С Днём Рождения!</div>
+  <div style="text-align:center; padding: 20px 10px;">
+    <div class="eyebrow" style="margin-bottom:8px;">С Днём Рождения!</div>
     <h2 style="font-size:clamp(28px, 8vw, 42px); color: var(--accent2);">Просто хочу быть рядом с тобой. ♡</h2>
     
-    <div class="card" style="margin-top: 25px; padding: 25px 20px; text-align: left;">
+    <!-- Ваша вторая совместная фотография -->
+    <div class="card" style="margin: 20px 0;">
+      <img class="photo personal" src="our_photo2.jpg" onerror="this.src='https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80'" alt="Наше второе фото">
+    </div>
+
+    <div class="card" style="padding: 25px 20px; text-align: left;">
       <p class="quote">
         Я собрал этот день не просто для того, чтобы куда-то сходить и чем-то заняться.<br><br>
         Мне хотелось подарить тебе один день, в котором будет немного всего: вкусная еда, смех, азарт, прогулка и много времени вдвоём.
@@ -261,7 +259,7 @@ p{line-height:1.65}
       <div style="text-align: right;" class="handwriting">С днём рождения, Бадинура. ❤️</div>
     </div>
 
-    <div style="margin-top: 30px;">
+    <div style="margin-top: 25px;">
       <button class="btn primary" onclick="triggerConfetti(); go(0)">Вернуться в начало ↺</button>
     </div>
   </div>
@@ -276,7 +274,6 @@ function go(id) {
   document.getElementById('s' + id).classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
   
-  // Плавная смена оттенка фона в зависимости от экрана
   const bg = document.querySelector('.app-bg');
   if(id === 0) bg.style.background = 'radial-gradient(circle at 50% 50%, rgba(244, 217, 193, 0.08), #0a0908)';
   if(id === 1) bg.style.background = 'radial-gradient(circle at 30% 30%, rgba(233, 189, 153, 0.12), #0a0908)';
